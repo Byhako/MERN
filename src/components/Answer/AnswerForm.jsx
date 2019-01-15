@@ -1,4 +1,8 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import actions from '@/actions'
+
+import moment from 'moment'
 import '@/styles/answerForm.styl'
 
 class AnswerForm extends Component {
@@ -18,7 +22,21 @@ class AnswerForm extends Component {
 
   handleSumbit = (e) => {
     e.preventDefault()
-    console.log(this.answer)
+
+    const newAnswer = {
+      idQuestion: this.props.idQuestion,
+      createAt: moment().format('lll'),
+      user: 'Toto',
+      description: this.answer
+    }
+
+    this.props.dispatch(actions.answer(newAnswer))
+
+    // clean textarea
+    const ta = document.getElementById('ta')
+    if (!ta.value || ta.value != ta.defaultValue) {
+        ta.value = ta.defaultValue
+    }
   }
 
   render () {
@@ -26,6 +44,7 @@ class AnswerForm extends Component {
       <form className="form-answer">
         <textarea
           className="form-control"
+          id='ta'
           rows="2"
           placeholder='Respuesta'
           onChange={this.handleChangeAnswer}
@@ -40,4 +59,4 @@ class AnswerForm extends Component {
   }
 }
 
-export default AnswerForm
+export default connect()(AnswerForm)

@@ -1,5 +1,8 @@
 import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+
 import moment from 'moment'
+import uuidv4 from 'uuid/v4'
 import AnswerForm from '@/components/Answer/AnswerForm'
 
 import '@/styles/questionsDetails.styl'
@@ -9,15 +12,23 @@ class QuestionsDetails extends Component {
     super(props)
 
     moment.locale('es')
-    const now = moment().format('YYYYMMDDhmmss')
-    const createAt = moment(now, "YYYYMMDDhmmss").fromNow()
+    const now = moment().format('lll')
+    const createAt = moment(now, "lll").fromNow()
+    this.idQuestion = uuidv4()
 
     this.state = {
+      idQuestion: this.idQuestion,
       title: 'Nueva pregunta Android',
       description: 'No se como hacer un header en mi movil',
       createAt,
       icon: 'devicon-android-plain',
       answers: []
+    }
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.answerList !== this.props.answerList) {
+      this.setState({answers: this.props.answerList[this.idQuestion]})
     }
   }
 
@@ -43,13 +54,18 @@ class QuestionsDetails extends Component {
         <div className="container mt-3">
           <h3 className="title">Respuestas</h3>
           <ul className='answers-list'>
-            {this.state.answers.lenght > 0 ? (
+            {this.state.answers.length > 0 ? (
               <Fragment>
-              <li>
-                <h5 style={{marginBotton: 0}}>Pepito <small>Hace dos minutos</small> </h5>
-                <p className='description-answer'>yo tengo la respuesta.</p>
-              </li>
+              {this.state.answers.map((answer, index) => {
+                {this.ago = moment(answer.createAt, "lll").fromNow()}
+                return (
+                <li key={index}>
+                  <h5 style={{marginBotton: 0}}>{answer.user}<small> {this.ago}</small> </h5>
+                  <p className='description-answer'>{answer.description}</p>
+                </li>
+              )})}
               </Fragment>
+
             ) : (
               <p>sé el primero en responder.</p>
             )}
@@ -57,11 +73,19 @@ class QuestionsDetails extends Component {
         </div>
   
         <div className='answer-form'>
-          <AnswerForm/>
+          <AnswerForm 
+            idQuestion={this.idQuestion}
+          />
         </div>
       </Fragment>
     )
   }
 }
 
-export default QuestionsDetails
+function mapStateToProps (state, props) {
+  return {
+    answerList: state.answerList
+  }
+}
+
+export default connect(mapStateToProps)(QuestionsDetails)
