@@ -1,6 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import icons from './icons'
+import moment from 'moment'
+import uuidv4 from 'uuid/v4'
 
 import '@/styles/questionForm.styl'
 
@@ -9,21 +11,14 @@ class QuestionForm extends Component {
     super(props)
     this.title = ''
     this.description = ''
+    this.iconName = ''
     
     this.state = {}
   }
 
   handleChangeTitle = (e) => this.title = e.target.value
   handleChangeDescription = (e) => this.description = e.target.value
-
-  handleSubmit = () => {
-    const question = {
-      title: this.title,
-      description: this.description
-    }
-    console.table(question)
-    // this.props.dispatch(actions.login(this.email, this.password))
-  }
+  handleSelectIcon = (e) => this.iconName = e.target.value
 
   versionIcon (icon) {
     let version
@@ -35,6 +30,20 @@ class QuestionForm extends Component {
     }
 
     return version
+  }
+
+  handleSubmit = () => {
+    const createAt = moment().format('lll')
+
+    const question = {
+      idQuestion: uuidv4(),
+      title: this.title,
+      description: this.description,
+      createAt,
+      icon: this.iconName
+    }
+    console.table(question)
+    // this.props.dispatch(actions.login(this.email, this.password))
   }
 
   render () {
@@ -65,14 +74,38 @@ class QuestionForm extends Component {
             
             {/* Lista de iconos */}
             <div className="icons-list">
-            <p className='firts-icon'>
-              <i className="fas fa-question-circle icon-form" />
-              <small>Sin ícono</small>
-            </p>
+
+              <div className="custom-control custom-radio">
+                <input
+                  type="radio"
+                  className="custom-control-input"
+                  id='firts'
+                  value='noneIcon'
+                  name='icon'
+                  onChange={this.handleSelectIcon}
+                />
+                <label className="custom-control-label" htmlFor='firts'>
+                  <p className='firts-icon'>
+                    <i className="fas fa-question-circle icon-form" />
+                    <small>Sin ícono</small>
+                  </p>
+                </label>
+              </div>
               {icons.map((icon, i) => { 
                 {this.icon = `devicon-${icon.name}-${this.versionIcon(icon)} icon-form`}
                 return (
-                  <i className={this.icon} key={i} />
+                  <div className="custom-control custom-radio" key={i}>
+                    <input 
+                      type="radio"
+                      className="custom-control-input"
+                      id={i} value={this.icon}
+                      name='icon'
+                      onChange={this.handleSelectIcon}
+                    />
+                    <label className="custom-control-label" htmlFor={i}>
+                      <i className={this.icon}/>
+                    </label>
+                  </div>
                 )
               })}
             </div>
@@ -85,10 +118,7 @@ class QuestionForm extends Component {
         </div>
         
 
-        <div className="custom-control custom-radio">
-          <input type="radio" className="custom-control-input" id="defaultUnchecked" name="defaultExampleRadios" />
-          <label className="custom-control-label" htmlFor="defaultUnchecked">Default unchecked</label>
-        </div>
+
       </div>
     )
   }
