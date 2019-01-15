@@ -9,6 +9,7 @@ const middleware = [ReduxThunk, logger]
 
 export const initialState = {
   token: null,
+  login: false,
   user: 'Toto',
   answerList: {},
   questionList: [{
