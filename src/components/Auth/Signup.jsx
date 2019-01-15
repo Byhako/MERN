@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
+import { Link, Redirect } from 'react-router-dom'
+
 import $ from 'jquery'
 
 import '@/styles/signin.styl'
@@ -129,6 +131,11 @@ class Signup extends Component {
                 <div className="col-10 offset-1 px-0">
                   <button className="btn-login btn-danger" onClick={this.handleLogin}>Crear cuenta</button>
                 </div>
+
+                <p style={{textAlign: 'center', marginTop: '5px'}}>
+                  ¿Ya tienen un usuario?
+                  <Link to="/signin"> Inicia sesión</Link>
+                </p>
 
               </div>
             </div>
