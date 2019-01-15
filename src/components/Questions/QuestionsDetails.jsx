@@ -45,8 +45,7 @@ class QuestionsDetails extends Component {
                 <h5 className="card-title">{this.state.title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">Ruben - {this.state.createAt}</h6>
               </div>
-            </div>
-            
+            </div>            
             <p className="card-text">{this.state.description}</p>
           </div>
         </div>
@@ -71,7 +70,8 @@ class QuestionsDetails extends Component {
             )}
           </ul>          
         </div>
-  
+
+        {/*Answer form*/}
         <div className='answer-form'>
           <AnswerForm 
             idQuestion={this.idQuestion}

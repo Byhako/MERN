@@ -2,7 +2,8 @@ import React, { Component, Fragment } from 'react'
 
 import Header from './Header'
 import QuestionsDetails from '@/components/Questions/QuestionsDetails'
-
+import Signin from '@/components/Auth/Signin'
+import Signup from '@/components/Auth/Signup'
 
 class Home extends Component {
   render () {
@@ -10,7 +11,9 @@ class Home extends Component {
     return (
       <Fragment>
         <Header />
-        <QuestionsDetails />
+        {/*<QuestionsDetails />*/}
+        {/*<Signin />*/}
+        <Signup />
       </Fragment>
     )
   }

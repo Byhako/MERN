@@ -23,9 +23,10 @@ function SET_ANSWERS (state, action) {
     description: newAnswer.description
   }
 
+  // si esta pregunta ya tenia alguna respuesta
   if (answerList[newAnswer.idQuestion]) {
     answerList[newAnswer.idQuestion].unshift(answer) 
-  } else {
+  } else { // si es la primer respuesta 
     answerList[newAnswer.idQuestion] = [answer]     
   }
 

@@ -26,7 +26,7 @@ class AnswerForm extends Component {
     const newAnswer = {
       idQuestion: this.props.idQuestion,
       createAt: moment().format('lll'),
-      user: 'Toto',
+      user: this.props.user,
       description: this.answer
     }
 
@@ -59,4 +59,10 @@ class AnswerForm extends Component {
   }
 }
 
-export default connect()(AnswerForm)
+function mapStateToProps (state, props) {
+  return {
+    user: state.user
+  }
+}
+
+export default connect(mapStateToProps)(AnswerForm)
