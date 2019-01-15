@@ -53,6 +53,13 @@ class Signup extends Component {
  
 
   handleRegister = () => {
+    const user = {
+      name: this.name,
+      surname: this.surname,
+      email: this.email,
+      password: this.password
+    }
+    
     // this.props.dispatch(actions.login(this.email, this.password))
   }
 
