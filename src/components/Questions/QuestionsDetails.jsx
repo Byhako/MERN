@@ -14,16 +14,16 @@ class QuestionsDetails extends Component {
     moment.locale('es')
     const now = moment().format('lll')
     const createAt = moment(now, "lll").fromNow()
-    this.idQuestion = uuidv4()
 
     this.state = {
-      idQuestion: this.idQuestion,
-      title: 'Nueva pregunta Android',
-      description: 'No se como hacer un header en mi movil',
-      createAt,
-      icon: 'devicon-android-plain',
+      question: '',
       answers: []
     }
+  }
+  
+  componentDidMount () {
+    const question = this.props.questionList[this.props.indexQuestion]
+    this.setState({question})
   }
 
   componentDidUpdate (prevProps) {
@@ -39,14 +39,26 @@ class QuestionsDetails extends Component {
           <div className="card-body">
             <div className="row">
               <div className="col-2">
-                <i className={this.state.icon} style={{fontSize: '39px'}} />
+                {this.state.question.icon ? (
+                  <i 
+                    className={this.state.question.icon}
+                    style={{fontSize: '39px'}}
+                  />
+                ) : (
+                  <i
+                    className="fas fa-question-circle"
+                    style={{fontSize: '39px'}} 
+                  />
+                )}
               </div>
               <div className="col">
-                <h5 className="card-title">{this.state.title}</h5>
-                <h6 className="card-subtitle mb-2 text-muted">Ruben - {this.state.createAt}</h6>
+                <h5 className="card-title">{this.state.question.title}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">
+                  {this.state.question.user} - {this.state.question.createAt}
+                </h6>
               </div>
             </div>            
-            <p className="card-text">{this.state.description}</p>
+            <p className="card-text">{this.state.question.description}</p>
           </div>
         </div>
         
@@ -59,7 +71,9 @@ class QuestionsDetails extends Component {
                 {this.ago = moment(answer.createAt, "lll").fromNow()}
                 return (
                 <li key={index}>
-                  <h5 style={{marginBotton: 0}}>{answer.user}<small> {this.ago}</small> </h5>
+                  <h5 style={{marginBotton: 0}}>
+                    {answer.user}<small> {this.ago}</small>
+                  </h5>
                   <p className='description-answer'>{answer.description}</p>
                 </li>
               )})}
@@ -84,7 +98,10 @@ class QuestionsDetails extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    answerList: state.answerList
+    answerList: state.answerList,
+    idQuestion: state.idQuestion,
+    indexQuestion: state.indexQuestion,
+    questionList: state.questionList
   }
 }
 

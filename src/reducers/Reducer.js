@@ -2,16 +2,21 @@ export default Reducer
 
 function Reducer (state, action) {
   const reducer = ({
-    IS_OPEN,
-    SET_ANSWERS
+    SET_ANSWERS,
+    SET_IDQUESTION,
+    SET_INDEXQUESTION
 
   })[action.type]
 
   return (reducer && reducer(state, action)) || state
 }
 
-function IS_OPEN (state, action) {
-  return { ...state, isOpen: action.isOpen }
+function SET_IDQUESTION (state, action) {
+  return { ...state, idQuestion: action.idQuestion }
+}
+
+function SET_INDEXQUESTION (state, action) {
+  return { ...state, indexQuestion: action.indexQuestion }
 }
 
 function SET_ANSWERS (state, action) {

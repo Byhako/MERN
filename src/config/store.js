@@ -11,9 +11,12 @@ export const initialState = {
   token: null,
   login: false,
   user: 'Toto',
+  idQuestion: '',
+  indexQuestion: '',
   answerList: {},
   questionList: [{
       idQuestion: '12324',
+      user: 'Ruben',
       title: 'Nueva pregunta Android.',
       description: 'No se como hacer un header en mi movil',
       createAt: 'hace unos segundos',
@@ -21,6 +24,7 @@ export const initialState = {
     },
     {
       idQuestion: '6789',
+      user: 'Nata',
       title: 'Pregunta sin definir',
       description: 'No se como hacer un header en mi movil',
       createAt: 'hace unos segundos',
