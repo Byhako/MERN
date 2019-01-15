@@ -4,9 +4,9 @@ import '@/styles/questionList.styl'
 
 class QuestionList extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   
-    this.state = {};
+    this.state = {}
   }
 
   render () {

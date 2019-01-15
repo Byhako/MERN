@@ -15,7 +15,6 @@ class QuestionsDetails extends Component {
     const now = moment().format('lll')
     const createAt = moment(now, "lll").fromNow()
     this.idQuestion = uuidv4()
-    console.log(createAt)
 
     this.state = {
       idQuestion: this.idQuestion,

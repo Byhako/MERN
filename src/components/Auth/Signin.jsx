@@ -32,10 +32,7 @@ class Signin extends Component {
     }
   }
 
-  handleChangePassword = (e) => {
-    const value = e.target.value
-    this.password = value
-  }
+  handleChangePassword = (e) => this.password = e.target.value
 
   handleLogin = () => {
     // this.props.dispatch(actions.login(this.email, this.password))
