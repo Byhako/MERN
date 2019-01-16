@@ -24,11 +24,14 @@ class QuestionsDetails extends Component {
   componentDidMount () {
     const question = this.props.questionList[this.props.indexQuestion]
     this.setState({question})
+    if (this.props.answerList[this.props.idQuestion]) {
+      this.setState({answers: this.props.answerList[this.props.idQuestion]})
+    }
   }
 
   componentDidUpdate (prevProps) {
     if (prevProps.answerList !== this.props.answerList) {
-      this.setState({answers: this.props.answerList[this.idQuestion]})
+      this.setState({answers: this.props.answerList[this.props.idQuestion]})
     }
   }
 

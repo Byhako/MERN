@@ -30,6 +30,8 @@ class AnswerForm extends Component {
       description: this.answer
     }
 
+    console.log('---->', newAnswer)
+
     this.props.dispatch(actions.answer(newAnswer))
 
     // clean textarea
@@ -61,7 +63,8 @@ class AnswerForm extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    user: state.user
+    user: state.user,
+    idQuestion: state.idQuestion
   }
 }
 

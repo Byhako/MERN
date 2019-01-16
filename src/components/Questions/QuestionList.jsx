@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import actions from '@/actions'
 import '@/styles/questionList.styl'
@@ -13,7 +13,6 @@ class QuestionList extends Component {
   selectQuestion = (e) => {
     const idQuestion = e.target.dataset.id
     const index = e.target.dataset.index
-    console.log(idQuestion)
 
     this.props.dispatch(actions.getAnswers(idQuestion, index))
     this.setState({questionSelected: true})
@@ -23,6 +22,7 @@ class QuestionList extends Component {
     return (
       <Fragment>
         {!this.state.questionSelected ? (
+          <Fragment>
           <ul className="list-group">
             {this.props.questionList.map((question, i) => {
               {this.props.answerList[question.idQuestion] ? (
@@ -62,7 +62,7 @@ class QuestionList extends Component {
                   >
                     <h4 data-id={question.idQuestion} data-index={i}>{question.title}</h4>
                     <p data-id={question.idQuestion} data-index={i}>
-                      <small data-id={question.idQuestion}>
+                      <small data-id={question.idQuestion} data-index={i}>
                         {this.number} respuestas. - {question.createAt}
                       </small>
                     </p>
@@ -71,6 +71,11 @@ class QuestionList extends Component {
               )
             })}
           </ul>
+            
+            <Link to='/questionForm' className='link-btn'>
+              <button type="button" className="btn btn-danger btn-add">+</button>
+            </Link>
+          </Fragment>
         ) : (
           <Redirect to='/questionsDetails' />
         )}
