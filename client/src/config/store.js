@@ -10,26 +10,11 @@ const middleware = [ReduxThunk, logger]
 export const initialState = {
   token: null,
   login: false,
-  user: 'Toto',
+  user: '',
   idQuestion: '',
   indexQuestion: '',
   answerList: {},
-  questionList: [{
-      idQuestion: '12324',
-      user: 'Ruben',
-      title: 'Nueva pregunta Android.',
-      description: 'No se como hacer un header en mi movil',
-      createAt: 'hace unos segundos',
-      icon: 'devicon-android-plain'
-    },
-    {
-      idQuestion: '6789',
-      user: 'Nata',
-      title: 'Pregunta sin definir',
-      description: 'No se como hacer un header en mi movil',
-      createAt: 'hace unos segundos',
-      icon: null
-    }]
+  questionList: []
 }
 
 const store = createStore(

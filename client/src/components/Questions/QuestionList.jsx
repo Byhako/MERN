@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from 'react'
 import { Redirect, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import moment from 'moment'
+moment.locale('es')
 import actions from '@/actions'
 import '@/styles/questionList.styl'
 
@@ -10,11 +12,17 @@ class QuestionList extends Component {
     questionSelected: false
   }
 
+  componentDidMount () {
+    this.props.dispatch(actions.getquestions())
+  }
+
   selectQuestion = (e) => {
     const idQuestion = e.target.dataset.id
     const index = e.target.dataset.index
+    const list = this.props.questionList
+    const user = `${list[index].user.firstName} ${list[index].user.surname}`
 
-    this.props.dispatch(actions.getAnswers(idQuestion, index))
+    this.props.dispatch(actions.getAnswers(idQuestion, index, user))
     this.setState({questionSelected: true})
   }
 
@@ -25,11 +33,7 @@ class QuestionList extends Component {
           <Fragment>
           <ul className="list-group">
             {this.props.questionList.map((question, i) => {
-              {this.props.answerList[question.idQuestion] ? (
-                this.number = this.props.answerList[question.idQuestion].length
-              ) : (
-                this.number = 0
-              )}
+              {this.number = question.numberAnswers}
               return (
                 <li
                   onClick={this.selectQuestion}
@@ -63,7 +67,7 @@ class QuestionList extends Component {
                     <h4 data-id={question.idQuestion} data-index={i}>{question.title}</h4>
                     <p data-id={question.idQuestion} data-index={i}>
                       <small data-id={question.idQuestion} data-index={i}>
-                        {this.number} respuestas. - {question.createAt}
+                        {this.number} respuestas. - {moment(question.createAt, "lll").fromNow()}
                       </small>
                     </p>
                   </div>
@@ -86,8 +90,7 @@ class QuestionList extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    questionList: state.questionList,
-    answerList: state.answerList
+    questionList: state.questionList
   }
 }
 

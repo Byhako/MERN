@@ -3,12 +3,22 @@ export default Reducer
 function Reducer (state, action) {
   const reducer = ({
     SET_ANSWERS,
+    SET_USER,
     SET_IDQUESTION,
-    SET_INDEXQUESTION
-
+    SET_INDEXQUESTION,
+    SET_QUESTIONSLIST
   })[action.type]
 
   return (reducer && reducer(state, action)) || state
+}
+
+
+function SET_QUESTIONSLIST (state, action) {
+  return { ...state, questionList: action.data }
+}
+
+function SET_USER(state, action) {
+  return { ...state, user: action.user }
 }
 
 function SET_IDQUESTION (state, action) {

@@ -1,5 +1,28 @@
-export default { answer, getAnswers }
+export default { getquestions, answer, getAnswers }
 
+
+function getquestions () {
+  return function (dispatch) {
+    const url = `http://localhost:3000/api/questions`
+    const miInit = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors'
+    }
+
+    return fetch(url, miInit)
+      .then(response => {
+        if (response.ok) {
+          console.log('Request getquestions ok')
+          return response.json()
+        } else { console.log('Error in request getquestions:', response) }
+      })
+      .then(data => {
+        dispatch({ type: 'SET_QUESTIONSLIST', data })
+      })
+      .catch(err => console.error('Error in response getquestions:', err))
+  }
+}
 
 function answer (newAnswer) {
   return function (dispatch) {
@@ -34,9 +57,10 @@ function answer (newAnswer) {
   }
 }
 
-function getAnswers (idQuestion, index) {
+function getAnswers (idQuestion, index, user) {
   return function (dispatch) {
     dispatch({ type: 'SET_IDQUESTION', idQuestion })
+    dispatch({ type: 'SET_USER', user })
     dispatch({ type: 'SET_INDEXQUESTION', indexQuestion: index })
     
     // const url = `http://localhost:3000/register`

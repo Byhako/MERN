@@ -24,6 +24,7 @@ class QuestionsDetails extends Component {
   componentDidMount () {
     const question = this.props.questionList[this.props.indexQuestion]
     this.setState({question})
+    console.log(question)
     if (this.props.answerList[this.props.idQuestion]) {
       this.setState({answers: this.props.answerList[this.props.idQuestion]})
     }
@@ -36,13 +37,14 @@ class QuestionsDetails extends Component {
   }
 
   render () {
+    const { question } = this.state
     return (
       <Fragment>
         <div className="card">
           <div className="card-body">
             <div className="row">
               <div className="col-2">
-                {this.state.question.icon ? (
+                {question.icon ? (
                   <i 
                     className={this.state.question.icon}
                     style={{fontSize: '39px'}}
@@ -55,13 +57,13 @@ class QuestionsDetails extends Component {
                 )}
               </div>
               <div className="col">
-                <h5 className="card-title">{this.state.question.title}</h5>
+                <h5 className="card-title">{question.title}</h5>
                 <h6 className="card-subtitle mb-2 text-muted">
-                  {this.state.question.user} - {this.state.question.createAt}
+                  {this.props.user} - {moment(question.createAt, "lll").fromNow()}
                 </h6>
               </div>
             </div>            
-            <p className="card-text">{this.state.question.description}</p>
+            <p className="card-text">{question.description}</p>
           </div>
         </div>
         
@@ -104,7 +106,8 @@ function mapStateToProps (state, props) {
     answerList: state.answerList,
     idQuestion: state.idQuestion,
     indexQuestion: state.indexQuestion,
-    questionList: state.questionList
+    questionList: state.questionList,
+    user: state.user
   }
 }
 
