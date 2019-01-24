@@ -27,64 +27,82 @@ class QuestionList extends Component {
   }
 
   render () {
-    return (
-      <Fragment>
-        {!this.state.questionSelected ? (
-          <Fragment>
-          <ul className="list-group">
-            {this.props.questionList.map((question, i) => {
-              {this.number = question.numberAnswers}
-              return (
-                <li
-                  onClick={this.selectQuestion}
-                  className="list-group-item row"
-                  key={i}
-                  data-id={question.idQuestion}
-                  data-index={i}
-                >
-                  <div className="col-2 col-list">
-                    {question.icon ? (
-                      <i 
-                        data-id={question.idQuestion}
-                        data-index={i}
-                        className={question.icon}
-                        style={{fontSize: '42px'}}
-                      />
-                    ) : (
-                      <i
-                        data-id={question.idQuestion}
-                        data-index={i}
-                        className="fas fa-question-circle"
-                        style={{fontSize: '42px'}} 
-                      />
-                    )}
-                  </div>
-                  <div 
+    
+    if (this.props.questionList.length === 0) {
+      return (
+        <div className="container-spiner"
+          style={{display: 'flex', justifyContent: 'center', marginTop: '30px'}}
+        >
+          <div
+            className="spinner-border"
+            style={{width: "3rem", height: "3rem", color: 'brown'}} 
+            role="status"
+          >
+            <span className="sr-only">Loading...</span>
+          </div>
+        </div>
+      )
+    } else {
+      return (
+        <Fragment>
+          {!this.state.questionSelected ? (
+            <Fragment>
+            <ul className="list-group">
+              {this.props.questionList.map((question, i) => {
+                {this.number = question.numberAnswers}
+                return (
+                  <li
+                    onClick={this.selectQuestion}
+                    className="list-group-item row"
+                    key={i}
                     data-id={question.idQuestion}
                     data-index={i}
-                    className="col-10 offset-2 col-list"
                   >
-                    <h4 data-id={question.idQuestion} data-index={i}>{question.title}</h4>
-                    <p data-id={question.idQuestion} data-index={i}>
-                      <small data-id={question.idQuestion} data-index={i}>
-                        {this.number} respuestas. - {moment(question.createAt, "lll").fromNow()}
-                      </small>
-                    </p>
-                  </div>
-                </li>
-              )
-            })}
-          </ul>
-            
-            <Link to='/questionForm' className='link-btn'>
-              <button type="button" className="btn btn-danger btn-add">+</button>
-            </Link>
-          </Fragment>
-        ) : (
-          <Redirect to='/questionsDetails' />
-        )}
-      </Fragment>
-    )
+                    <div className="col-2 col-list">
+                      {question.icon ? (
+                        <i 
+                          data-id={question.idQuestion}
+                          data-index={i}
+                          className={question.icon}
+                          style={{fontSize: '42px'}}
+                        />
+                      ) : (
+                        <i
+                          data-id={question.idQuestion}
+                          data-index={i}
+                          className="fas fa-question-circle"
+                          style={{fontSize: '42px'}} 
+                        />
+                      )}
+                    </div>
+                    <div 
+                      data-id={question.idQuestion}
+                      data-index={i}
+                      className="col-10 offset-2 col-list"
+                    >
+                      <h4 data-id={question.idQuestion} data-index={i}>{question.title}</h4>
+                      <p data-id={question.idQuestion} data-index={i}>
+                        <small data-id={question.idQuestion} data-index={i}>
+                          {this.number} respuestas. - {moment(question.createAt, "lll").fromNow()}
+                        </small>
+                      </p>
+                    </div>
+                  </li>
+                )
+              })}
+            </ul>
+              
+              <Link to='/questionForm' className='link-btn'>
+                <button type="button" className="btn btn-danger btn-add">+</button>
+              </Link>
+            </Fragment>
+          ) : (
+            <Redirect to='/questionsDetails' />
+          )}
+        </Fragment>
+      )
+    }
+
   }
 }
 

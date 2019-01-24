@@ -6,7 +6,7 @@ const app = express.Router()
 
 const question = {
   idQuestion: '12324',
-  title: 'Como preparar el arroz?',
+  title: 'Como representar un array?',
   description: 'Mi prenguta sin respuesta',
   createAt: moment().format('lll'),
   icon: 'devicon-android-plain',

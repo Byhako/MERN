@@ -1,7 +1,6 @@
 import React, { Component, Fragment }  from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import Home from './Home'
 import Header from './Header'
 import Signin from '@/components/Auth/Signin'
 import Signup from '@/components/Auth/Signup'
