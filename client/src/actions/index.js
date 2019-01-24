@@ -1,4 +1,4 @@
-export default { getquestions, answer, setAnswers }
+export default { getquestions, setNewAnswer }
 
 
 function getquestions () {
@@ -24,71 +24,33 @@ function getquestions () {
   }
 }
 
-function answer (newAnswer) {
+
+function setNewAnswer (answer, idQuestion) {
   return function (dispatch) {
-    dispatch({ type: 'SET_ANSWERS', newAnswer })
     
-    // const url = `http://localhost:3000/register`
-    // const body = {name, email, password}
-    // const miInit = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(body),
-    //   mode: 'cors'
-    // }
+    const url = `http://localhost:3000/api/questions`
+    const body = {answer, idQuestion}
+    const miInit = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      mode: 'cors'
+    }
 
-    // return fetch(url, miInit)
-    //   .then(response => {
-    //     if (response.ok) {
-    //       console.log('Request registrar ok')
-    //       return response.json()
-    //     } else { console.log('Error in request registrar:', response) }
-    //   })
-    //   .then(data => {
-    //     console.log(data)
-    //     if (data.validName) {
-    //       dispatch({ type: 'SET_NAME', name })
-    //       dispatch({ type: 'SET_LOGIN', login: true })
-    //     } else {
-    //       dispatch({ type: 'SET_VALIDNAME', validName: false })
-    //     }
-    //   })
-    //   .catch(err => console.error('Error in response registrar:', err))
-  }
-}
-
-function setAnswers (answerList, user, index) {
-  return function (dispatch) {
-    // dispatch({ type: 'SET_IDQUESTION', idQuestion })
-    dispatch({ type: 'SET_USER', user })
-    dispatch({ type: 'SET_ANSWERSLIST', answerList })
-    dispatch({ type: 'SET_INDEXQUESTION', indexQuestion: index })
-    
-    // const url = `http://localhost:3000/register`
-    // const body = {name, email, password}
-    // const miInit = {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(body),
-    //   mode: 'cors'
-    // }
-
-    // return fetch(url, miInit)
-    //   .then(response => {
-    //     if (response.ok) {
-    //       console.log('Request registrar ok')
-    //       return response.json()
-    //     } else { console.log('Error in request registrar:', response) }
-    //   })
-    //   .then(data => {
-    //     console.log(data)
-    //     if (data.validName) {
-    //       dispatch({ type: 'SET_NAME', name })
-    //       dispatch({ type: 'SET_LOGIN', login: true })
-    //     } else {
-    //       dispatch({ type: 'SET_VALIDNAME', validName: false })
-    //     }
-    //   })
-    //   .catch(err => console.error('Error in response registrar:', err))
+    return fetch(url, miInit)
+      .then(response => {
+        if (response.ok) {
+          console.log('Request registrar ok')
+          return response.json()
+        } else { console.log('Error in request registrar:', response) }
+      })
+      .then(data => {
+        console.log(data)
+        if (data.success) {
+          dispatch(getquestions())
+        }
+        
+      })
+      .catch(err => console.error('Error in response registrar:', err))
   }
 }

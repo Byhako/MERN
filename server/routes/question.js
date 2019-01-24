@@ -4,7 +4,7 @@ moment.locale('es')
 
 const app = express.Router()
 
-const question = {
+let question = {
   idQuestion: '12324',
   title: 'Como representar un array?',
   description: 'Mi prenguta sin respuesta',
@@ -24,14 +24,31 @@ const question = {
     password: '1234'
   }
 }
+  
+let questions
 
-const questions = new Array(10).fill(question)
+function fill (question) {  
+  questions = new Array(10).fill(question)
+}
+fill(question)
 
 // api/questions
 app.get('/', (req, res) => res.status(200).json(questions) )
 
 // api/questions:id
-app.get('/:id', (req, res) => res.status(200).json(question))
+app.get('/:id', (req, res) => {
+    console.log(req.url.split('/')[1])
+    res.status(200).json(question)
+  }
+)
+
+// api/questions
+app.post('/', (req, res) => {
+  const { answer, idQuestion } = req.body
+  question.answers.splice(0,0,answer)
+  fill(question)
+  res.status(200).json({success: true})
+})
 
 
 export default app

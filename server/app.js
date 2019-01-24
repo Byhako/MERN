@@ -1,4 +1,5 @@
 import express from 'express'
+import bodyParser from 'body-parser'
 import { question } from './routes'
 
 const app = express()
@@ -17,7 +18,8 @@ if (process.env.NODE_ENV === 'development') {
   })
 }
 
-
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))  // utf-8
 app.use('/api/questions', question)
 
 export default app

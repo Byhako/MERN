@@ -26,12 +26,7 @@ class AnswerForm extends Component {
       description: this.answer
     }
 
-    const { user, indexQuestion } = this.props
-
-    let answers = this.props.answerList.slice()
-    answers.push(newAnswer)
-
-    this.props.dispatch(actions.setAnswers(answers, user, indexQuestion))
+    this.props.dispatch(actions.setNewAnswer(newAnswer, this.props.idQuestion))
 
     // clean textarea
     const ta = document.getElementById('ta')
@@ -64,9 +59,6 @@ function mapStateToProps (state, props) {
   return {
     user: state.user,
     idQuestion: state.idQuestion,
-    answerList: state.answerList,
-    indexQuestion: state.indexQuestion,
-    user: state.user
   }
 }
 

@@ -22,21 +22,25 @@ class QuestionsDetails extends Component {
   }
   
   componentDidMount () {
-    const question = this.props.questionList[this.props.indexQuestion]
-    this.setState({question})
-    this.setState({answers: this.props.answerList})
+    const index = this.props.indexQuestion
+    if (index) {
+      const question = this.props.questionList[index]
+      const answers = question.answers
+      this.setState({question, answers})
+    }
   }
 
   componentDidUpdate (prevProps) {
-    if (prevProps.answerList !== this.props.answerList) {
-      this.setState({answers: this.props.answerList})
+    if (prevProps.questionList !== this.props.questionList) {
+      console.log('ACTUALIZAR')
+      const question = this.props.questionList[this.props.indexQuestion]
+      const answers = question.answers
+      this.setState({question, answers})
     }
   }
 
   render () {
     const { question, answers } = this.state
-    console.log('question: ',question)
-    console.log('answers: ',answers)
 
     if (question && answers) {
       return (
@@ -117,7 +121,6 @@ class QuestionsDetails extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    answerList: state.answerList,
     indexQuestion: state.indexQuestion,
     questionList: state.questionList,
     user: state.user

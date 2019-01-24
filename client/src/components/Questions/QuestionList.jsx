@@ -21,9 +21,11 @@ class QuestionList extends Component {
     const index = e.target.dataset.index
     const list = this.props.questionList
     const user = `${list[index].user.firstName} ${list[index].user.surname}`
-    const answers = list[index].answers
 
-    this.props.dispatch(actions.setAnswers(answers, user, index))
+    this.props.dispatch({ type: 'SET_USER', user })
+    this.props.dispatch({ type: 'SET_INDEXQUESTION', indexQuestion: index })
+    this.props.dispatch({ type: 'SET_IDQUESTION', idQuestion })
+    console.log('index', index)
     this.setState({questionSelected: true})
   }
 
