@@ -10,9 +10,6 @@ class AnswerForm extends Component {
     super(props)
     
     this.answer = ''
-
-    this.state = {
-    }
   }
 
   handleChangeAnswer = (e) => {
@@ -24,15 +21,17 @@ class AnswerForm extends Component {
     e.preventDefault()
 
     const newAnswer = {
-      idQuestion: this.props.idQuestion,
       createAt: moment().format('lll'),
       user: this.props.user,
       description: this.answer
     }
 
-    console.log('---->', newAnswer)
+    const { user, indexQuestion } = this.props
 
-    this.props.dispatch(actions.answer(newAnswer))
+    let answers = this.props.answerList.slice()
+    answers.push(newAnswer)
+
+    this.props.dispatch(actions.setAnswers(answers, user, indexQuestion))
 
     // clean textarea
     const ta = document.getElementById('ta')
@@ -64,7 +63,10 @@ class AnswerForm extends Component {
 function mapStateToProps (state, props) {
   return {
     user: state.user,
-    idQuestion: state.idQuestion
+    idQuestion: state.idQuestion,
+    answerList: state.answerList,
+    indexQuestion: state.indexQuestion,
+    user: state.user
   }
 }
 

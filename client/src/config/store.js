@@ -13,7 +13,7 @@ export const initialState = {
   user: '',
   idQuestion: '',
   indexQuestion: '',
-  answerList: {},
+  answerList: [],
   questionList: []
 }
 

@@ -21,8 +21,9 @@ class QuestionList extends Component {
     const index = e.target.dataset.index
     const list = this.props.questionList
     const user = `${list[index].user.firstName} ${list[index].user.surname}`
+    const answers = list[index].answers
 
-    this.props.dispatch(actions.getAnswers(idQuestion, index, user))
+    this.props.dispatch(actions.setAnswers(answers, user, index))
     this.setState({questionSelected: true})
   }
 
@@ -49,7 +50,7 @@ class QuestionList extends Component {
             <Fragment>
             <ul className="list-group">
               {this.props.questionList.map((question, i) => {
-                {this.number = question.numberAnswers}
+                {this.number = question.answers.length}
                 return (
                   <li
                     onClick={this.selectQuestion}

@@ -6,7 +6,8 @@ function Reducer (state, action) {
     SET_USER,
     SET_IDQUESTION,
     SET_INDEXQUESTION,
-    SET_QUESTIONSLIST
+    SET_QUESTIONSLIST,
+    SET_ANSWERSLIST
   })[action.type]
 
   return (reducer && reducer(state, action)) || state
@@ -48,3 +49,6 @@ function SET_ANSWERS (state, action) {
   return { ...state, answerList }
 }
 
+function SET_ANSWERSLIST (state, action) {
+  return { ...state, answerList: action.answerList }
+}

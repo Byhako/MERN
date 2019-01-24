@@ -10,8 +10,13 @@ const question = {
   description: 'Mi prenguta sin respuesta',
   createAt: moment().format('lll'),
   icon: 'devicon-android-plain',
-  numberAnswers: 10,
-  answers: [],
+  answers: [
+    {createAt: moment().format('lll'), user: 'ana', description: 'Respuesta 1'},
+    {createAt: moment().format('lll'), user: 'pepe', description: 'Respuesta 2'},
+    {createAt: moment().format('lll'), user: 'toto', description: 'Respuesta 3'},
+    {createAt: moment().format('lll'), user: 'mika', description: 'Respuesta 4'},
+    {createAt: moment().format('lll'), user: 'eric', description: 'Respuesta 5'}
+  ],
   user: {
     firstName: 'Ruben',
     surname: 'Acosta',

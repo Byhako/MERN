@@ -1,4 +1,4 @@
-export default { getquestions, answer, getAnswers }
+export default { getquestions, answer, setAnswers }
 
 
 function getquestions () {
@@ -57,10 +57,11 @@ function answer (newAnswer) {
   }
 }
 
-function getAnswers (idQuestion, index, user) {
+function setAnswers (answerList, user, index) {
   return function (dispatch) {
-    dispatch({ type: 'SET_IDQUESTION', idQuestion })
+    // dispatch({ type: 'SET_IDQUESTION', idQuestion })
     dispatch({ type: 'SET_USER', user })
+    dispatch({ type: 'SET_ANSWERSLIST', answerList })
     dispatch({ type: 'SET_INDEXQUESTION', indexQuestion: index })
     
     // const url = `http://localhost:3000/register`
