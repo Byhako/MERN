@@ -28,7 +28,7 @@ function getquestions () {
 function setNewAnswer (answer, idQuestion) {
   return function (dispatch) {
     
-    const url = `http://localhost:3000/api/questions`
+    const url = `http://localhost:3000/api/questions/newAnswer`
     const body = {answer, idQuestion}
     const miInit = {
       method: 'POST',

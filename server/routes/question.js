@@ -42,8 +42,8 @@ app.get('/:id', (req, res) => {
   }
 )
 
-// api/questions
-app.post('/', (req, res) => {
+// api/questions/newAnswer
+app.post('/newAnswer', (req, res) => {
   const { answer, idQuestion } = req.body
   question.answers.splice(0,0,answer)
   fill(question)
