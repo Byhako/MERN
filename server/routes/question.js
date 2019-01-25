@@ -1,6 +1,10 @@
 import express from 'express'
 import moment from 'moment'
+import Debug from 'debug'
+
 moment.locale('es')
+const debug = new Debug('server:question')
+
 
 const app = express.Router()
 
@@ -47,6 +51,12 @@ app.post('/newAnswer', (req, res) => {
   const { answer, idQuestion } = req.body
   question.answers.splice(0,0,answer)
   fill(question)
+  res.status(200).json({success: true})
+})
+
+// api/questions
+app.post('/', (req, res) => {
+  questions.splice(0,0,req.body.question)  
   res.status(200).json({success: true})
 })
 

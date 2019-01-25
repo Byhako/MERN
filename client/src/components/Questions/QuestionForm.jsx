@@ -1,9 +1,11 @@
 import React, { Component, Fragment } from 'react'
+import { Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import icons from './icons'
 import moment from 'moment'
 import uuidv4 from 'uuid/v4'
 
+import actions from '@/actions'
 import '@/styles/questionForm.styl'
 
 class QuestionForm extends Component {
@@ -40,86 +42,93 @@ class QuestionForm extends Component {
       title: this.title,
       description: this.description,
       createAt,
-      icon: this.iconName
+      icon: this.iconName,
+      answers: [],
+      user: {
+        firstName: 'Ruben',
+        surname: 'Acosta'
+      }
     }
-    console.table(question)
-    // this.props.dispatch(actions.login(this.email, this.password))
+    this.props.dispatch(actions.newQuestion(question))
   }
 
   render () {
     return (
-      <div className="container my-5">
-        <div className="row">
-          <div className="col">
-            <label htmlFor='title' className='col-10 offset-1 px-0 label-login'>
-              Título
-            </label>
-            <input
-              id='title'
-              type='text'
-              className='col-10 offset-1 mb-3 input-login'
-              placeholder='título de pregunta'
-              onChange={this.handleChangeTitle}
-            />
-            <label htmlFor='description' className='col-10 offset-1 px-0 label-login'>
-              Descripción
-            </label>
-            <input
-              id='description'
-              className='col-10 offset-1 mb-3 input-login'
-              onChange={this.handleChangeDescription}
-              type="text"
-              placeholder='Descripción'
-            />
-            
-            {/* Lista de iconos */}
-            <div className="icons-list">
-
-              <div className="custom-control custom-radio">
-                <input
-                  type="radio"
-                  className="custom-control-input"
-                  id='firts'
-                  value='noneIcon'
-                  name='icon'
-                  onChange={this.handleSelectIcon}
-                />
-                <label className="custom-control-label" htmlFor='firts'>
-                  <p className='firts-icon'>
-                    <i className="fas fa-question-circle icon-form" />
-                    <small>Sin ícono</small>
-                  </p>
+      <Fragment>
+        {this.props.newQuestion ? (
+          <Redirect to='/' />
+        ) : (
+          <div className="container my-5">
+            <div className="row">
+              <div className="col">
+                <label htmlFor='title' className='col-10 offset-1 px-0 label-login'>
+                  Título
                 </label>
-              </div>
-              {icons.map((icon, i) => { 
-                {this.icon = `devicon-${icon.name}-${this.versionIcon(icon)} icon-form`}
-                return (
-                  <div className="custom-control custom-radio" key={i}>
-                    <input 
+                <input
+                  id='title'
+                  type='text'
+                  className='col-10 offset-1 mb-3 input-login'
+                  placeholder='título de pregunta'
+                  onChange={this.handleChangeTitle}
+                />
+                <label htmlFor='description' className='col-10 offset-1 px-0 label-login'>
+                  Descripción
+                </label>
+                <input
+                  id='description'
+                  className='col-10 offset-1 mb-3 input-login'
+                  onChange={this.handleChangeDescription}
+                  type="text"
+                  placeholder='Descripción'
+                />
+                
+                {/* Lista de iconos */}
+                <div className="icons-list">
+
+                  <div className="custom-control custom-radio">
+                    <input
                       type="radio"
                       className="custom-control-input"
-                      id={i} value={this.icon}
+                      id='firts'
+                      value='noneIcon'
                       name='icon'
                       onChange={this.handleSelectIcon}
                     />
-                    <label className="custom-control-label" htmlFor={i}>
-                      <i className={this.icon}/>
+                    <label className="custom-control-label" htmlFor='firts'>
+                      <p className='firts-icon'>
+                        <i className="fas fa-question-circle icon-form" />
+                        <small>Sin ícono</small>
+                      </p>
                     </label>
                   </div>
-                )
-              })}
-            </div>
-          
-            <div className="col-10 offset-1 px-0">
-              <button className="btn-login btn-danger" onClick={this.handleSubmit}>Enviar</button>
-            </div>
+                  {icons.map((icon, i) => { 
+                    {this.icon = `devicon-${icon.name}-${this.versionIcon(icon)} icon-form`}
+                    return (
+                      <div className="custom-control custom-radio" key={i}>
+                        <input 
+                          type="radio"
+                          className="custom-control-input"
+                          id={i} value={this.icon}
+                          name='icon'
+                          onChange={this.handleSelectIcon}
+                        />
+                        <label className="custom-control-label" htmlFor={i}>
+                          <i className={this.icon}/>
+                        </label>
+                      </div>
+                    )
+                  })}
+                </div>
+              
+                <div className="col-10 offset-1 px-0">
+                  <button className="btn-login btn-danger" onClick={this.handleSubmit}>Enviar</button>
+                </div>
 
+              </div>
+            </div>
           </div>
-        </div>
-        
-
-
-      </div>
+        )}
+      </Fragment>
     )
   }
 }
@@ -127,7 +136,8 @@ class QuestionForm extends Component {
 function mapStateToProps (state, props) {
   return {
     questionList: state.questionList,
-    answerList: state.answerList
+    answerList: state.answerList,
+    newQuestion: state.newQuestion
   }
 }
 

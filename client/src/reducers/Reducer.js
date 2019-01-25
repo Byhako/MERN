@@ -6,6 +6,7 @@ function Reducer (state, action) {
     SET_IDQUESTION,
     SET_INDEXQUESTION,
     SET_QUESTIONSLIST,
+    SET_NEWQUESTION
   })[action.type]
 
   return (reducer && reducer(state, action)) || state
@@ -26,4 +27,8 @@ function SET_IDQUESTION (state, action) {
 
 function SET_INDEXQUESTION (state, action) {
   return { ...state, indexQuestion: action.indexQuestion }
+}
+
+function SET_NEWQUESTION (state, action) {
+  return { ...state, newQuestion: action.newQuestion }
 }

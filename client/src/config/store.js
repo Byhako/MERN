@@ -13,7 +13,8 @@ export const initialState = {
   user: '',
   idQuestion: '',
   indexQuestion: '',
-  questionList: []
+  questionList: [],
+  newQuestion: false
 }
 
 const store = createStore(

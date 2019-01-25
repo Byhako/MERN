@@ -1,4 +1,4 @@
-export default { getquestions, setNewAnswer }
+export default { getquestions, setNewAnswer, newQuestion }
 
 
 function getquestions () {
@@ -9,7 +9,6 @@ function getquestions () {
       headers: { 'Content-Type': 'application/json' },
       mode: 'cors'
     }
-
     return fetch(url, miInit)
       .then(response => {
         if (response.ok) {
@@ -36,21 +35,47 @@ function setNewAnswer (answer, idQuestion) {
       body: JSON.stringify(body),
       mode: 'cors'
     }
-
     return fetch(url, miInit)
       .then(response => {
         if (response.ok) {
-          console.log('Request registrar ok')
+          console.log('Request setNewAnswer ok')
           return response.json()
-        } else { console.log('Error in request registrar:', response) }
+        } else { console.log('Error in request setNewAnswer:', response) }
       })
       .then(data => {
-        console.log(data)
         if (data.success) {
           dispatch(getquestions())
         }
         
       })
-      .catch(err => console.error('Error in response registrar:', err))
+      .catch(err => console.error('Error in response setNewAnswer:', err))
+  }
+}
+
+
+function newQuestion (question) {
+  return function (dispatch) {
+    
+    const url = `http://localhost:3000/api/questions`
+    const body = {question}
+    const miInit = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      mode: 'cors'
+    }
+    return fetch(url, miInit)
+      .then(response => {
+        if (response.ok) {
+          console.log('Request newQuestion ok')
+          return response.json()
+        } else { console.log('Error in request newQuestion:', response) }
+      })
+      .then(data => {
+        if (data.success) {
+          dispatch({ type: 'SET_NEWQUESTION', newQuestion: true })
+        }
+      })
+      .catch(err => console.error('Error in response newQuestion:', err))
   }
 }

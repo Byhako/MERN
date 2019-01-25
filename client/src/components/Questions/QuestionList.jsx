@@ -7,9 +7,13 @@ import actions from '@/actions'
 import '@/styles/questionList.styl'
 
 class QuestionList extends Component {
-
-  state = {
-    questionSelected: false
+  constructor(props) {
+    super(props)
+    this.props.dispatch({ type: 'SET_NEWQUESTION', newQuestion: false })
+  
+    this.state = {
+      questionSelected: false
+    }
   }
 
   componentDidMount () {
@@ -25,7 +29,6 @@ class QuestionList extends Component {
     this.props.dispatch({ type: 'SET_USER', user })
     this.props.dispatch({ type: 'SET_INDEXQUESTION', indexQuestion: index })
     this.props.dispatch({ type: 'SET_IDQUESTION', idQuestion })
-    console.log('index', index)
     this.setState({questionSelected: true})
   }
 
