@@ -26,7 +26,6 @@ class QuestionList extends Component {
     const list = this.props.questionList
     const user = `${list[index].user.firstName} ${list[index].user.surname}`
 
-    this.props.dispatch({ type: 'SET_USER', user })
     this.props.dispatch({ type: 'SET_INDEXQUESTION', indexQuestion: index })
     this.props.dispatch({ type: 'SET_IDQUESTION', idQuestion })
     this.setState({questionSelected: true})

@@ -1,4 +1,4 @@
-export default { getquestions, setNewAnswer, newQuestion }
+export default { getquestions, setNewAnswer, newQuestion, login }
 
 
 function getquestions () {
@@ -77,5 +77,32 @@ function newQuestion (question) {
         }
       })
       .catch(err => console.error('Error in response newQuestion:', err))
+  }
+}
+
+function login (data) {
+  return function (dispatch) {
+    
+    const url = `http://localhost:3000/api/auth/signin`
+    const body = {data}
+    const miInit = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      mode: 'cors'
+    }
+    return fetch(url, miInit)
+      .then(response => {
+        if (response.ok) {
+          console.log('Request login ok')
+          return response.json()
+        } else { console.log('Error in request login:', response) }
+      })
+      .then(data => {
+        if (data.message === 'Login success') {
+          dispatch({ type: 'SET_LOGIN', data })
+        }
+      })
+      .catch(err => console.error('Error in response login:', err))
   }
 }

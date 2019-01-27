@@ -20,7 +20,7 @@ const findUserByEmail = (e) => users.find(user => user.email === e)
 
 
 app.post('/signin', (req, res, next) => {
-  const { email, password } = req.body
+  const { email, password } = req.body.data
   const user = findUserByEmail(email)
   
   if (!user) {
@@ -39,7 +39,7 @@ app.post('/signin', (req, res, next) => {
 
   const token = jwt.sign({ user }, clave, { expiresIn: 86400 })
 
-  res.stauts(200).json({
+  res.status(200).json({
     message: 'Login success',
     token,
     userId: user._id,

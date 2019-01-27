@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
 
 import $ from 'jquery'
+import actions from '@/actions'
+
 
 import '@/styles/signin.styl'
 
@@ -37,13 +39,17 @@ class Signin extends Component {
   handleChangePassword = (e) => this.password = e.target.value
 
   handleLogin = () => {
-    // this.props.dispatch(actions.login(this.email, this.password))
+    const data = {
+      email: this.email,
+      password: this.password
+    }
+    this.props.dispatch(actions.login(data))
   }
 
   render () {
     return (
       <Fragment>
-        {!this.state.login ? (
+        {!this.props.login ? (
           <div className="container my-5">
             <div className="row">
               <div className="col container-login">
@@ -81,7 +87,7 @@ class Signin extends Component {
             </div>
           </div>
         ) : (
-          <Redirect to='/table' />
+          <Redirect to='/' />
         )
         }
       </Fragment>
@@ -89,4 +95,10 @@ class Signin extends Component {
   }
 }
 
-export default connect()(Signin)
+function mapStateToProps (state, props) {
+  return {
+    login: state.login
+  }
+}
+
+export default connect(mapStateToProps)(Signin)

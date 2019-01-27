@@ -11,6 +11,7 @@ export const initialState = {
   token: null,
   login: false,
   user: '',
+  email: '',
   idQuestion: '',
   indexQuestion: '',
   questionList: [],
