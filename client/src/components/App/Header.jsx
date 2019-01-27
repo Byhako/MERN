@@ -1,18 +1,36 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { connect } from 'react-redux'
 
-function Header () {
-  return (
-    <nav className="navbar navbar-dark bg-primary">
-      <Link to="/">
-        <span className="navbar-brand">Overflow</span>
-      </Link>
-      <Link to="/signin">
-        <i className="fas fa-user-circle"
-          style={{color: 'white', fontSize: '1em', cursor: 'pointer'}} />
-      </Link>
-    </nav>
-  )
+
+class Header extends Component {
+  Loguot = () => this.props.dispatch({ type: 'SET_LOGUOT' })
+  render () {
+    return (
+      <nav className="navbar navbar-dark bg-primary">
+        <Link to="/">
+          <span className="navbar-brand">Overflow</span>
+        </Link>
+        {this.props.login ? (
+          <div onClick={this.Loguot}>
+            <i className="fas fa-user-circle"
+              style={{color: 'white', fontSize: '1em', cursor: 'pointer'}} />
+          </div>
+        ) : (
+          <Link to="/signin">
+            <i className="fas fa-user-circle"
+              style={{color: 'white', fontSize: '1em', cursor: 'pointer'}} />
+          </Link>
+        )}
+      </nav>
+    )
+  }
 }
 
-export default Header
+function mapStateToProps (state, props) {
+  return {
+    login: state.login
+  }
+}
+
+export default connect(mapStateToProps)(Header)
