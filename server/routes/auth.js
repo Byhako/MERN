@@ -1,9 +1,10 @@
 import express from 'express'
 import Debug from 'debug'
+import jwt from 'jsonwebtoken'
 
 const debug = Debug('server:auth')
 const app = express.Router()
-
+const clave = 'miclave'
 
 let users = [
   {
@@ -29,15 +30,23 @@ app.post('/signin', (req, res, next) => {
     })
   }
 
-  if (password === user.password) {
-
-
-  } else {
+  if (!(password === user.password)) {
     debug(`Password not match.`)
     return res.status(401).json({
       message: 'Login failed'
     })
   }
+
+  const token = jwt.sign({ user }, clave, { expiresIn: 86400 })
+
+  res.stauts(200).json({
+    message: 'Login success',
+    token,
+    userId: user._id,
+    firstName: user.firstName,
+    surname: user.surname,
+    email: user.email
+  }) 
 })
 
 export default app
