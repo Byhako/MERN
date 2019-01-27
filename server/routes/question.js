@@ -1,53 +1,31 @@
 import express from 'express'
 import moment from 'moment'
-import Debug from 'debug'
-
 moment.locale('es')
+
+import Debug from 'debug'
+import  {
+  required,
+  questionMiddelware,
+  questionsMiddelware
+} from '../middleware'
+
 const debug = new Debug('server:question')
 
 
 const app = express.Router()
 
-let question = {
-  idQuestion: '12324',
-  title: 'Como representar un array?',
-  description: 'Mi prenguta sin respuesta',
-  createAt: moment().format('lll'),
-  icon: 'devicon-android-plain',
-  answers: [
-    {createAt: moment().format('lll'), user: 'ana', description: 'Respuesta 1'},
-    {createAt: moment().format('lll'), user: 'pepe', description: 'Respuesta 2'},
-    {createAt: moment().format('lll'), user: 'toto', description: 'Respuesta 3'},
-    {createAt: moment().format('lll'), user: 'mika', description: 'Respuesta 4'},
-    {createAt: moment().format('lll'), user: 'eric', description: 'Respuesta 5'}
-  ],
-  user: {
-    firstName: 'Ruben',
-    surname: 'Acosta',
-    email: 'ruben@mail.com',
-    password: '1234'
-  }
-}
-  
-let questions
-
-function fill (question) {  
-  questions = new Array(10).fill(question)
-}
-fill(question)
-
 // api/questions
-app.get('/', (req, res) => res.status(200).json(questions) )
+app.get('/', questionsMiddelware, (req, res) => res.status(200).json(req.questions) )
 
 // api/questions:id
-app.get('/:id', (req, res) => {
+app.get('/:id', questionMiddelware, (req, res) => {
     console.log(req.url.split('/')[1])
     res.status(200).json(question)
   }
 )
 
 // api/questions/newAnswer
-app.post('/newAnswer', (req, res) => {
+app.post('/newAnswer', required, questionMiddelware, (req, res) => {
   const { answer, idQuestion } = req.body
   question.answers.splice(0,0,answer)
   fill(question)
@@ -55,7 +33,7 @@ app.post('/newAnswer', (req, res) => {
 })
 
 // api/questions
-app.post('/', (req, res) => {
+app.post('/', required, (req, res) => {
   questions.splice(0,0,req.body.question)  
   res.status(200).json({success: true})
 })

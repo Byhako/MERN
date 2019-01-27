@@ -1,23 +1,11 @@
 import express from 'express'
-import Debug from 'debug'
 import jwt from 'jsonwebtoken'
 import uuidv4 from 'uuid/v4'
+import { clave } from '../config'
+import { findUserByEmail, users } from '../middleware'
 
-const debug = Debug('server:auth')
+
 const app = express.Router()
-const clave = 'miclave'
-
-let users = [
-  {
-    firstName: 'Ruben',
-    surname: 'Acosta',
-    email: 'ruben@mail.com',
-    password: '1234',
-    _id: 123
-  }
-]
-
-const findUserByEmail = (e) => users.find(user => user.email === e)
 
 
 app.post('/signin', (req, res, next) => {
@@ -71,7 +59,6 @@ app.post('/signup', (req, res) => {
     surname,
     email    
   })
-
 })
 
 export default app
