@@ -27,7 +27,7 @@ class Header extends Component {
         {this.props.login && 
           <p
             style={{margin: 'auto', color: 'white'}}
-          >{this.props.user}</p>
+          >{this.props.user.firstName} {this.props.user.surname}</p>
         }
         {this.props.login ? (
           <div onClick={this.Loguot}>

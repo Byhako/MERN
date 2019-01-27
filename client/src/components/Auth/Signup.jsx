@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Link, Redirect } from 'react-router-dom'
+import actions from '@/actions'
 
 import $ from 'jquery'
 
@@ -16,7 +17,6 @@ class Signup extends Component {
     this.password2 = ''
   
     this.state = {
-      login: false,
       messageError: ''
     }
   }
@@ -56,19 +56,21 @@ class Signup extends Component {
 
   handleRegister = () => {
     const user = {
-      name: this.name,
+      firstName: this.name,
       surname: this.surname,
       email: this.email,
       password: this.password
     }
+
+    console.log(user)
     
-    // this.props.dispatch(actions.login(this.email, this.password))
+    this.props.dispatch(actions.signup(user))
   }
 
   render () {
     return (
       <Fragment>
-        {!this.state.login ? (
+        {!this.props.login ? (
           <div className="container my-5">
             <div className="row">
               <div className="col container-login">
@@ -129,7 +131,7 @@ class Signup extends Component {
                 />
               
                 <div className="col-10 offset-1 px-0">
-                  <button className="btn-login btn-danger" onClick={this.handleLogin}>Crear cuenta</button>
+                  <button className="btn-login btn-danger" onClick={this.handleRegister}>Crear cuenta</button>
                 </div>
 
                 <p style={{textAlign: 'center', marginTop: '5px'}}>
@@ -141,7 +143,7 @@ class Signup extends Component {
             </div>
           </div>
         ) : (
-          <Redirect to='/table' />
+          <Redirect to='/' />
         )
         }
       </Fragment>
@@ -149,4 +151,10 @@ class Signup extends Component {
   }
 }
 
-export default connect()(Signup)
+function mapStateToProps (state, props) {
+  return {
+    login: state.login
+  }
+}
+
+export default connect(mapStateToProps)(Signup)

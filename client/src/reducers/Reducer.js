@@ -35,8 +35,11 @@ function SET_LOGIN (state, action) {
     ...state,
     token: action.data.token,
     login: true,
-    user: `${action.data.firstName} ${action.data.surname}`,
-    email: action.data.email    
+    user: {
+      firstName: action.data.firstName,
+      surname: action.data.surname,
+      email: action.data.email
+    }  
   }
 }
 
@@ -46,6 +49,5 @@ function SET_LOGUOT (state, action) {
     token: null,
     login: false,
     user: '',
-    email: ''    
   }
 }

@@ -44,10 +44,7 @@ class QuestionForm extends Component {
       createAt,
       icon: this.iconName,
       answers: [],
-      user: {
-        firstName: 'Ruben',
-        surname: 'Acosta'
-      }
+      user: this.props.user
     }
     this.props.dispatch(actions.newQuestion(question))
   }
@@ -137,7 +134,8 @@ function mapStateToProps (state, props) {
   return {
     questionList: state.questionList,
     answerList: state.answerList,
-    newQuestion: state.newQuestion
+    newQuestion: state.newQuestion,
+    user: state.user
   }
 }
 

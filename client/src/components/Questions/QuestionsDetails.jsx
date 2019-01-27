@@ -65,7 +65,7 @@ class QuestionsDetails extends Component {
                   <h5 className="card-title">{question.title}</h5>
                   <h6 className="card-subtitle mb-2 text-muted">
                     {question.user.firstName} &nbsp;
-                    {question.user.surname} - 
+                    {question.user.surname} - &nbsp;
                     {moment(question.createAt, "lll").fromNow()}
                   </h6>
                 </div>

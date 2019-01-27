@@ -1,6 +1,7 @@
 import express from 'express'
 import Debug from 'debug'
 import jwt from 'jsonwebtoken'
+import uuidv4 from 'uuid/v4'
 
 const debug = Debug('server:auth')
 const app = express.Router()
@@ -47,6 +48,30 @@ app.post('/signin', (req, res, next) => {
     surname: user.surname,
     email: user.email
   }) 
+})
+
+
+app.post('/signup', (req, res) => {
+  const {email, password, firstName, surname } = req.body.user
+  const user = {
+    _id: uuidv4(),
+    email,
+    password,
+    firstName,
+    surname
+  }
+  users.push(user)
+  const token = jwt.sign({ user }, clave, { expiresIn: 86400 })
+
+  res.status(201).json({
+    message: 'User created',
+    token,
+    userId: user._id,
+    firstName,
+    surname,
+    email    
+  })
+
 })
 
 export default app
