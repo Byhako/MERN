@@ -1,16 +1,34 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
 class Header extends Component {
-  Loguot = () => this.props.dispatch({ type: 'SET_LOGUOT' })
+  state = {
+    login: true
+  }
+
+  componentDidUpdate(prepros) {
+    if (prepros.login !== this.props.login) {
+      this.setState({login: this.props.login})
+    }
+  }
+
+  Loguot = () => {
+    this.props.dispatch({ type: 'SET_LOGUOT' })
+  }
+
   render () {
     return (
       <nav className="navbar navbar-dark bg-primary">
         <Link to="/">
           <span className="navbar-brand">Overflow</span>
         </Link>
+        {this.props.login && 
+          <p
+            style={{margin: 'auto', color: 'white'}}
+          >{this.props.user}</p>
+        }
         {this.props.login ? (
           <div onClick={this.Loguot}>
             <i className="fas fa-user-circle"
@@ -22,6 +40,9 @@ class Header extends Component {
               style={{color: 'white', fontSize: '1em', cursor: 'pointer'}} />
           </Link>
         )}
+        {!this.state.login &&
+          <Redirect to='/' />
+        }
       </nav>
     )
   }
@@ -29,7 +50,8 @@ class Header extends Component {
 
 function mapStateToProps (state, props) {
   return {
-    login: state.login
+    login: state.login,
+    user: state.user
   }
 }
 
