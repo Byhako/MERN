@@ -15,7 +15,7 @@ class QuestionForm extends Component {
     this.description = ''
     this.iconName = ''
     
-    this.state = {}
+    this.state = {redirect: false}
   }
 
   handleChangeTitle = (e) => this.title = e.target.value
@@ -35,99 +35,109 @@ class QuestionForm extends Component {
   }
 
   handleSubmit = () => {
-    const createAt = moment().format('lll')
+    if (this.props.login) {
+      const createAt = moment().format('lll')
 
-    const question = {
-      idQuestion: uuidv4(),
-      title: this.title,
-      description: this.description,
-      createAt,
-      icon: this.iconName,
-      answers: [],
-      user: this.props.user
+      const question = {
+        idQuestion: uuidv4(),
+        title: this.title,
+        description: this.description,
+        createAt,
+        icon: this.iconName,
+        answers: [],
+        user: this.props.user
+      }
+
+      this.props.dispatch(actions.newQuestion(question, this.props.token)) 
+    } else {
+      this.setState({redirect: true})
     }
-
-    this.props.dispatch(actions.newQuestion(question, this.props.token))
   }
 
   render () {
-    return (
-      <Fragment>
-        {this.props.newQuestion ? (
-          <Redirect to='/' />
-        ) : (
-          <div className="container my-5">
-            <div className="row">
-              <div className="col">
-                <label htmlFor='title' className='col-10 offset-1 px-0 label-login'>
-                  Título
-                </label>
-                <input
-                  id='title'
-                  type='text'
-                  className='col-10 offset-1 mb-3 input-login'
-                  placeholder='título de pregunta'
-                  onChange={this.handleChangeTitle}
-                />
-                <label htmlFor='description' className='col-10 offset-1 px-0 label-login'>
-                  Descripción
-                </label>
-                <input
-                  id='description'
-                  className='col-10 offset-1 mb-3 input-login'
-                  onChange={this.handleChangeDescription}
-                  type="text"
-                  placeholder='Descripción'
-                />
-                
-                {/* Lista de iconos */}
-                <div className="icons-list">
+    if (this.state.redirect) {
+      return (
+        <Redirect to='/signin' />
+      )
+    } else {
+      return (
+        <Fragment>
+          {this.props.newQuestion ? (
+            <Redirect to='/' />
+          ) : (
+            <div className="container my-5">
+              <div className="row">
+                <div className="col">
+                  <label htmlFor='title' className='col-10 offset-1 px-0 label-login'>
+                    Título
+                  </label>
+                  <input
+                    id='title'
+                    type='text'
+                    className='col-10 offset-1 mb-3 input-login'
+                    placeholder='título de pregunta'
+                    onChange={this.handleChangeTitle}
+                  />
+                  <label htmlFor='description' className='col-10 offset-1 px-0 label-login'>
+                    Descripción
+                  </label>
+                  <input
+                    id='description'
+                    className='col-10 offset-1 mb-3 input-login'
+                    onChange={this.handleChangeDescription}
+                    type="text"
+                    placeholder='Descripción'
+                  />
+                  
+                  {/* Lista de iconos */}
+                  <div className="icons-list">
 
-                  <div className="custom-control custom-radio">
-                    <input
-                      type="radio"
-                      className="custom-control-input"
-                      id='firts'
-                      value='noneIcon'
-                      name='icon'
-                      onChange={this.handleSelectIcon}
-                    />
-                    <label className="custom-control-label" htmlFor='firts'>
-                      <p className='firts-icon'>
-                        <i className="fas fa-question-circle icon-form" />
-                        <small>Sin ícono</small>
-                      </p>
-                    </label>
+                    <div className="custom-control custom-radio">
+                      <input
+                        type="radio"
+                        className="custom-control-input"
+                        id='firts'
+                        value='noneIcon'
+                        name='icon'
+                        onChange={this.handleSelectIcon}
+                      />
+                      <label className="custom-control-label" htmlFor='firts'>
+                        <p className='firts-icon'>
+                          <i className="fas fa-question-circle icon-form" />
+                          <small>Sin ícono</small>
+                        </p>
+                      </label>
+                    </div>
+                    {icons.map((icon, i) => { 
+                      {this.icon = `devicon-${icon.name}-${this.versionIcon(icon)} icon-form`}
+                      return (
+                        <div className="custom-control custom-radio" key={i}>
+                          <input 
+                            type="radio"
+                            className="custom-control-input"
+                            id={i} value={this.icon}
+                            name='icon'
+                            onChange={this.handleSelectIcon}
+                          />
+                          <label className="custom-control-label" htmlFor={i}>
+                            <i className={this.icon}/>
+                          </label>
+                        </div>
+                      )
+                    })}
                   </div>
-                  {icons.map((icon, i) => { 
-                    {this.icon = `devicon-${icon.name}-${this.versionIcon(icon)} icon-form`}
-                    return (
-                      <div className="custom-control custom-radio" key={i}>
-                        <input 
-                          type="radio"
-                          className="custom-control-input"
-                          id={i} value={this.icon}
-                          name='icon'
-                          onChange={this.handleSelectIcon}
-                        />
-                        <label className="custom-control-label" htmlFor={i}>
-                          <i className={this.icon}/>
-                        </label>
-                      </div>
-                    )
-                  })}
-                </div>
-              
-                <div className="col-10 offset-1 px-0">
-                  <button className="btn-login btn-danger" onClick={this.handleSubmit}>Enviar</button>
-                </div>
+                
+                  <div className="col-10 offset-1 px-0">
+                    <button className="btn-login btn-danger" onClick={this.handleSubmit}>Enviar</button>
+                  </div>
 
+                </div>
               </div>
             </div>
-          </div>
-        )}
-      </Fragment>
-    )
+          )}
+        </Fragment>
+      )
+    }
   }
 }
 
@@ -137,7 +147,8 @@ function mapStateToProps (state, props) {
     answerList: state.answerList,
     newQuestion: state.newQuestion,
     user: state.user,
-    token: state.token
+    token: state.token,
+    login: state.login
   }
 }
 
