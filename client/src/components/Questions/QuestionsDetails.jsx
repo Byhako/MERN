@@ -35,6 +35,7 @@ class QuestionsDetails extends Component {
       console.log('ACTUALIZAR')
       const question = this.props.questionList[this.props.indexQuestion]
       const answers = question.answers
+      console.log(answers)
       this.setState({question, answers})
     }
   }

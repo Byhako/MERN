@@ -23,19 +23,16 @@ let question = {
   }
 }
   
-let questions
+export let questions = new Array(10).fill(question)
 
-function fill (question) {  
-  questions = new Array(10).fill(question)
-}
-fill(question)
 
 export const questionsMiddelware = (req, res, next) => {
-  req.question = questions
+  req.questions = questions
+  next()
 }
 
 export const questionMiddelware = (req, res, next) => {
-  const { id } = req.params
-  req.question = questions.find(({_id}) => _id === +id)
-  nest()
+  const id = req.body.idQuestion
+  req.question = questions.find(({idQuestion}) => idQuestion === id)
+  next()
 }

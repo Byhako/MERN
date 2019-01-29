@@ -2,6 +2,7 @@ export default { getquestions, setNewAnswer, newQuestion, login, signup }
 
 
 function getquestions () {
+  console.log('getQuestion')
   return function (dispatch) {
     const url = `http://localhost:3000/api/questions`
     const miInit = {
@@ -17,6 +18,7 @@ function getquestions () {
         } else { console.log('Error in request getquestions:', response) }
       })
       .then(data => {
+        console.log(data)
         dispatch({ type: 'SET_QUESTIONSLIST', data })
       })
       .catch(err => console.error('Error in response getquestions:', err))
@@ -24,10 +26,10 @@ function getquestions () {
 }
 
 
-function setNewAnswer (answer, idQuestion) {
+function setNewAnswer (answer, idQuestion, token) {
   return function (dispatch) {
     
-    const url = `http://localhost:3000/api/questions/newAnswer`
+    const url = `http://localhost:3000/api/questions/newAnswer?token=${token}`
     const body = {answer, idQuestion}
     const miInit = {
       method: 'POST',
@@ -53,10 +55,10 @@ function setNewAnswer (answer, idQuestion) {
 }
 
 
-function newQuestion (question) {
+function newQuestion (question, token) {
   return function (dispatch) {
     
-    const url = `http://localhost:3000/api/questions`
+    const url = `http://localhost:3000/api/questions?token=${token}`
     const body = {question}
     const miInit = {
       method: 'POST',

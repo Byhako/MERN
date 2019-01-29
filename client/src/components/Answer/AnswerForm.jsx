@@ -22,11 +22,11 @@ class AnswerForm extends Component {
 
     const newAnswer = {
       createAt: moment().format('lll'),
-      user: this.props.user,
+      user: `${this.props.user.firstName} ${this.props.user.surname}`,
       description: this.answer
     }
 
-    this.props.dispatch(actions.setNewAnswer(newAnswer, this.props.idQuestion))
+    this.props.dispatch(actions.setNewAnswer(newAnswer, this.props.idQuestion, this.props.token))
 
     // clean textarea
     const ta = document.getElementById('ta')
@@ -59,6 +59,7 @@ function mapStateToProps (state, props) {
   return {
     user: state.user,
     idQuestion: state.idQuestion,
+    token: state.token
   }
 }
 
