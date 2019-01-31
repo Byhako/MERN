@@ -5,7 +5,7 @@ const QuestionSchema = new Schema({
   description: { type: String, required: true },
   icon: { type: String, required: true },
   createAt: { type: String, required: true },
-  user: { type: Schema.Types.ObjectId, ref: 'User', required: true}
+  user: { type: Schema.Types.ObjectId, ref: 'User', required: true},
   answer: [{type: Schema.Types.ObjectId, ref: 'Answer', required: true}]
 })
 

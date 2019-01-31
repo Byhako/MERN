@@ -6,6 +6,7 @@ import { mongoUrl } from './config'
 const PORT = 3000
 const debug = new Debug('server:index')
 
+// mongoose.Promise = global.Promise
 
 async function start () {
   await mongoose.connect(mongoUrl, { useNewUrlParser: true })

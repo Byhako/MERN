@@ -8,10 +8,10 @@
 
 + **production:** npm run build
 
-### dependencies
++ **Iniciamos mongoDb**
 
-npm install -- save jquery popper.js react react-dom react-redux react-router react-router-dom redux redux-logger redux-thunk
+Nos ubicamos en la carpeta /server/services y corremos:
 
-### devDependencies
-
-npm install -D babel-core babel-loader babel-preset-env babel-preset-react babel-preset-stage-2 bootstrap clean-webpack-plugin css-loader eslint eslint-config-standard eslint-loader eslint-plugin-import eslint-plugin-node eslint-plugin-promise eslint-plugin-standard file-loader html-webpack-plugin redux-devtools-extension standard style-loader stylus stylus-loader ttf-loader url-loader webpack webpack-cli webpack-dev-server
+```
+$ mongod --dbpath /home/ruben/github/MERN/server
+```
