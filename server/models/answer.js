@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose'
 
-const AnswerSchema = Schema({
+const AnswerSchema = new Schema({
   description: { type: String, required: true },
   createAt: { type: String, required: true }
 })
