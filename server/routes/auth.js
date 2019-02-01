@@ -1,11 +1,13 @@
 import express from 'express'
 import jwt from 'jsonwebtoken'
+import Debug from 'debug'
 import uuidv4 from 'uuid/v4'
+import { hashSync } from 'bcrypt'
 import { clave } from '../config'
 // import { findUserByEmail, users } from '../middleware'
 import { User} from '../models'
 
-
+const debug = new Debug('server:routes:auth')
 const app = express.Router()
 
 //  Usando middleware sin base de datos
@@ -99,8 +101,9 @@ app.post('/signup', async (req, res) => {
     firstName,
     surname,
     email,
-    password
+    password: hashSync(password, 10)
   })
+  debug(hashSync(password, 10))
 
   const user = await u.save()
   const token = jwt.sign({ user }, clave, { expiresIn: 86400 })
