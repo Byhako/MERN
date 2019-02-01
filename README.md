@@ -10,7 +10,7 @@
 
 + **Iniciamos mongoDb**
 
-Nos ubicamos en la carpeta /server/services y corremos:
+Nos ubicamos en la carpeta /server y corremos:
 
 ```
 $ mongod --dbpath /home/ruben/github/MERN/server

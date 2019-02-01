@@ -33,9 +33,9 @@ app.get('/', async (req, res) => {
 //   }
 // )
 app.get('/:id', async (req, res) => {
-    tyr {
+    try {
       console.log(req.url.split('/')[1])
-      cont q = await question.findById(req.url.split('/')[1])
+      const q = await question.findById(req.url.split('/')[1])
       res.status(200).json(q)
     } catch (err) {
       handleError(err, res)
