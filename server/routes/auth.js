@@ -2,7 +2,7 @@ import express from 'express'
 import jwt from 'jsonwebtoken'
 import Debug from 'debug'
 import uuidv4 from 'uuid/v4'
-import { hashSync } from 'bcrypt'
+import { hashSync, compareSync } from 'bcrypt'
 import { clave } from '../config'
 // import { findUserByEmail, users } from '../middleware'
 import { User} from '../models'
@@ -76,7 +76,7 @@ app.post('/signin', async (req, res) => {
     })
   }
 
-  if (!(password === user.password)) {
+  if (!compareSync(password, user.password)) {
     debug(`Password not match.`)
     return res.status(401).json({
       message: 'Login failed'
