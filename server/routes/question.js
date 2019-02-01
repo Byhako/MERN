@@ -8,7 +8,7 @@ import  { required} from '../middleware'
   // questionsMiddelware,
   // questions
 import { question } from '../db-api'
-
+import { handleError } from '../utils'
 
 const debug = new Debug('server:question')
 const app = express.Router()
@@ -22,10 +22,7 @@ app.get('/', async (req, res) => {
     const questions = await question.findAll()
     res.status(200).json(questions) 
   } catch (err) {
-    res.status(500).json({
-      message: 'An error occured',
-      err
-    })
+    handleError(err, res)
   }
 })
 
@@ -35,9 +32,14 @@ app.get('/', async (req, res) => {
 //     res.status(200).json(question)
 //   }
 // )
-app.get('/:id', (req, res) => {
-    console.log(req.url.split('/')[1])
-    res.status(200).json(question)
+app.get('/:id', async (req, res) => {
+    tyr {
+      console.log(req.url.split('/')[1])
+      cont q = await question.findById(req.url.split('/')[1])
+      res.status(200).json(q)
+    } catch (err) {
+      handleError(err, res)
+    }
   }
 )
 
