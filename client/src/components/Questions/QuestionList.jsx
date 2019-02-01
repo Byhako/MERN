@@ -32,7 +32,7 @@ class QuestionList extends Component {
   }
 
   render () {
-    
+    console.log(this.props.questionList.length)
     if (this.props.questionList.length === 0) {
       return (
         <div className="container-spiner"
@@ -45,6 +45,9 @@ class QuestionList extends Component {
           >
             <span className="sr-only">Loading...</span>
           </div>
+            <Link to='/questionForm' className='link-btn'>
+              <button type="button" className="btn btn-danger btn-add">+</button>
+            </Link>
         </div>
       )
     } else {
@@ -54,7 +57,7 @@ class QuestionList extends Component {
             <Fragment>
             <ul className="list-group">
               {this.props.questionList.map((question, i) => {
-                {this.number = question.answers.length}
+                {this.number = question.answer.length}
                 return (
                   <li
                     onClick={this.selectQuestion}

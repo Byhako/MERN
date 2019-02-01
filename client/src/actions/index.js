@@ -19,6 +19,7 @@ function getquestions () {
       })
       .then(data => {
         console.log(data)
+        console.log(typeof(data))
         dispatch({ type: 'SET_QUESTIONSLIST', data })
       })
       .catch(err => console.error('Error in response getquestions:', err))
@@ -74,7 +75,7 @@ function newQuestion (question, token) {
         } else { console.log('Error in request newQuestion:', response) }
       })
       .then(data => {
-        if (data.success) {
+        if (data) {
           dispatch({ type: 'SET_NEWQUESTION', newQuestion: true })
         }
       })

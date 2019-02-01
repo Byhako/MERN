@@ -39,13 +39,10 @@ class QuestionForm extends Component {
       const createAt = moment().format('lll')
 
       const question = {
-        idQuestion: uuidv4(),
         title: this.title,
         description: this.description,
         createAt,
         icon: this.iconName,
-        answers: [],
-        user: this.props.user
       }
 
       this.props.dispatch(actions.newQuestion(question, this.props.token)) 

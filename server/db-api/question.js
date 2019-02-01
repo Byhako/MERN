@@ -7,12 +7,12 @@ const debug = new Debug('server:db-api:question')
 export default {
   findAll: async () => {
     debug('Finding all questions')
-    return await Question.find().populate('answer')
+    return Question.find().populate('answer')
   },
 
   findById: async (id) => {
     debug(`Finding questions with id ${id}`)
-    return await Question
+    return Question
       .findOne({id})
       .populate('user')
       .populate({
@@ -23,6 +23,11 @@ export default {
           model: 'User'
         }
       })
-    
+  },
+
+  create: async (q) => {
+    debug('Creando question')
+    const question = new Question(q)
+    return question.save()
   }
 }

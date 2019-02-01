@@ -10,7 +10,7 @@ import  { required} from '../middleware'
 import { question } from '../db-api'
 import { handleError } from '../utils'
 
-const debug = new Debug('server:question')
+const debug = new Debug('server:routes:question')
 const app = express.Router()
 
 // api/questions
@@ -43,6 +43,23 @@ app.get('/:id', async (req, res) => {
   }
 )
 
+// api/questions
+// app.post('/', required, questionsMiddelware, (req, res) => {
+//   req.questions.splice(0,0,req.body.question)  
+//   res.status(200).json({success: true})
+// })
+app.post('/', required, async (req, res) => {
+  let q = req.body.question
+  q['user'] = req.user._id
+  try {
+    const saveQuestion = await question.create(q)
+    res.status(201).json(saveQuestion)
+  } catch (err) {
+    handleError(err, res)
+  }
+})
+
+
 // api/questions/newAnswer
 // app.post('/newAnswer', required, questionMiddelware, (req, res) => {
 //   const { answer, idQuestion } = req.body
@@ -52,16 +69,6 @@ app.get('/:id', async (req, res) => {
 app.post('/newAnswer', required, (req, res) => {
   const { answer, idQuestion } = req.body
   req.question.answers.splice(0,0,answer)
-  res.status(200).json({success: true})
-})
-
-// api/questions
-// app.post('/', required, questionsMiddelware, (req, res) => {
-//   req.questions.splice(0,0,req.body.question)  
-//   res.status(200).json({success: true})
-// })
-app.post('/', required, (req, res) => {
-  req.questions.splice(0,0,req.body.question)  
   res.status(200).json({success: true})
 })
 
