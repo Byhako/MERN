@@ -7,9 +7,9 @@ MERN -> mongo, express, react, node.  Creamos algo similar a stack overflow.
 
 #### Iniciamos el cliente
 
-+ **development:** npm start
++ **development:** `$ npm start`
 
-+ **production:** npm run build
++ **production:** `$ npm run build`
 
 #### Iniciamos Iniciamos mongoDb
 
@@ -21,4 +21,4 @@ $ mongod --dbpath /home/ruben/github/MERN/server
 
 ### Iniciamos el server
 
-npm sun dev
+`$ npm run dev`
