@@ -43,7 +43,6 @@ export default {
     debug('createAnswer: ',answer)
     const saveAnswer = await answer.save()
     q.answers.splice(0,0, answer)
-    debug(q)
     await q.save()
     return saveAnswer
   }

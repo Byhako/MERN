@@ -1,17 +1,24 @@
-# React Template Full
+# Proyecto con arquitectura MERN
 
-+ Template for an React application, with Redux, React Router, Stylus, Bootstrap material-ui, all orchestrated with Webpack 4.
+MERN -> mongo, express, react, node.  Creamos algo similar a stack overflow.
 
-### use:
+
+### uso:
+
+#### Iniciamos el cliente
 
 + **development:** npm start
 
 + **production:** npm run build
 
-+ **Iniciamos mongoDb**
+#### Iniciamos Iniciamos mongoDb
 
 Nos ubicamos en la carpeta /server y corremos:
 
 ```
 $ mongod --dbpath /home/ruben/github/MERN/server
 ```
+
+### Iniciamos el server
+
+npm sun dev
