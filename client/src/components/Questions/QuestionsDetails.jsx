@@ -85,7 +85,8 @@ class QuestionsDetails extends Component {
                   return (
                   <li key={index}>
                     <h5 style={{marginBotton: 0}}>
-                      {answer.user}<small> {this.ago}</small>
+                      {answer.user.firstName} &nbsp; {answer.user.surname} &nbsp;
+                      <small> {this.ago}</small>
                     </h5>
                     <p className='description-answer'>{answer.description}</p>
                   </li>

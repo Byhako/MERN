@@ -32,7 +32,7 @@ class QuestionList extends Component {
   }
 
   render () {
-    console.log(this.props.questionList.length)
+    console.log(this.props.questionLis)
     if (this.props.questionList.length === 0) {
       return (
         <div className="container-spiner"
@@ -57,26 +57,26 @@ class QuestionList extends Component {
             <Fragment>
             <ul className="list-group">
               {this.props.questionList.map((question, i) => {
-                {this.number = question.answer.length}
+                {this.number = question.answers.length}
                 return (
                   <li
                     onClick={this.selectQuestion}
                     className="list-group-item row"
                     key={i}
-                    data-id={question.idQuestion}
+                    data-id={question._id}
                     data-index={i}
                   >
                     <div className="col-2 col-list">
                       {question.icon ? (
                         <i 
-                          data-id={question.idQuestion}
+                          data-id={question._id}
                           data-index={i}
                           className={question.icon}
                           style={{fontSize: '42px'}}
                         />
                       ) : (
                         <i
-                          data-id={question.idQuestion}
+                          data-id={question._id}
                           data-index={i}
                           className="fas fa-question-circle"
                           style={{fontSize: '42px'}} 
@@ -84,13 +84,13 @@ class QuestionList extends Component {
                       )}
                     </div>
                     <div 
-                      data-id={question.idQuestion}
+                      data-id={question._id}
                       data-index={i}
                       className="col-10 offset-2 col-list"
                     >
-                      <h4 data-id={question.idQuestion} data-index={i}>{question.title}</h4>
-                      <p data-id={question.idQuestion} data-index={i}>
-                        <small data-id={question.idQuestion} data-index={i}>
+                      <h4 data-id={question._id} data-index={i}>{question.title}</h4>
+                      <p data-id={question._id} data-index={i}>
+                        <small data-id={question._id} data-index={i}>
                           {this.number} respuestas. - {moment(question.createAt, "lll").fromNow()}
                         </small>
                       </p>

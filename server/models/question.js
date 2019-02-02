@@ -6,7 +6,7 @@ const QuestionSchema = new Schema({
   icon: { type: String, required: true },
   createAt: { type: String, required: true },
   user: { type: Schema.Types.ObjectId, ref: 'User', required: true},
-  answer: [{type: Schema.Types.ObjectId, ref: 'Answer', default: []}]
+  answers: [{type: Schema.Types.ObjectId, ref: 'Answer', default: []}]
 })
 
 const Question = mongoose.model('Question', QuestionSchema)

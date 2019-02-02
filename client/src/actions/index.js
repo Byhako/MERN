@@ -19,7 +19,6 @@ function getquestions () {
       })
       .then(data => {
         console.log(data)
-        console.log(typeof(data))
         dispatch({ type: 'SET_QUESTIONSLIST', data })
       })
       .catch(err => console.error('Error in response getquestions:', err))
@@ -27,7 +26,8 @@ function getquestions () {
 }
 
 
-function setNewAnswer (answer, idQuestion, token) {
+function setNewAnswer (answer, token, idQuestion) {
+  console.log('setNewAnswer')
   return function (dispatch) {
     
     const url = `http://localhost:3000/api/questions/newAnswer?token=${token}`
@@ -46,10 +46,8 @@ function setNewAnswer (answer, idQuestion, token) {
         } else { console.log('Error in request setNewAnswer:', response) }
       })
       .then(data => {
-        if (data.success) {
+          console.log(data)
           dispatch(getquestions())
-        }
-        
       })
       .catch(err => console.error('Error in response setNewAnswer:', err))
   }
